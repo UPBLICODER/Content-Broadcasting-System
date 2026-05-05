@@ -19,9 +19,9 @@ export async function approveContent(id) {
 }
 
 // reject content
-export async function rejectContent(id) {
+export async function rejectContent(id, reason) {
   try {
-    return await api.post(`/approvals/${id}/reject`);
+    return await api.post(`/approvals/${id}/reject`, { reason });
   } catch (error) {
     throw error;
   }

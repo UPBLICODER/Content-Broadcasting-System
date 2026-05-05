@@ -50,7 +50,9 @@ export default function PendingApprovalPage() {
   async function handleApprove(id) {
     try {
       await approveContent(id);
-      setItems((prev) => prev.filter((item) => item.id !== id));
+      // Refetch data instead of filtering local state
+      const data = await getPendingApprovals();
+      setItems(data || []);
     } catch (err) {
       alert("Approve failed");
     }
@@ -71,7 +73,9 @@ export default function PendingApprovalPage() {
     try {
       await rejectContent(selectedId, reason);
 
-      setItems((prev) => prev.filter((item) => item.id !== selectedId));
+      // Refetch data instead of filtering local state
+      const data = await getPendingApprovals();
+      setItems(data || []);
 
       setModalOpen(false);
       setSelectedId(null);
