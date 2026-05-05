@@ -1,20 +1,9 @@
 [
   {
-    "id": 1777980924130,
-    "title": "test",
-    "subject": "test",
-    "description": "test",
-    "status": "approved",
-    "fileName": "ChatGPT Image May 1, 2026, 11_46_13 AM.png",
-    "startTime": "2026-05-05T17:05",
-    "endTime": "2026-05-12T17:05",
-    "rotationDuration": ""
-  },
-  {
     "id": 1,
     "title": "Math Lecture - Algebra Basics",
     "subject": "Math",
-    "status": "rejected",
+    "status": "pending",
     "startTime": "2026-05-05T10:00",
     "endTime": "2026-05-05T12:00",
     "rejectionReason": "rejected"
