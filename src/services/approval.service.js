@@ -9,6 +9,15 @@ export async function getPendingApprovals() {
   }
 }
 
+// principal: all content
+export async function getAllContent() {
+  try {
+    return await api.get("/content");
+  } catch (error) {
+    throw error;
+  }
+}
+
 // approve content
 export async function approveContent(id) {
   try {

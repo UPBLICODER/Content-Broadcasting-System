@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getPendingApprovals } from "@/services/approval.service";
+import { getAllContent } from "@/services/approval.service";
 import useRoleGuard from "@/hooks/useRoleGuard";
 
 export default function AllContentPage() {
@@ -22,7 +22,7 @@ export default function AllContentPage() {
       try {
         setLoadingData(true);
 
-        const data = await getPendingApprovals();
+        const data = await getAllContent();
 
         setItems(data || []);
         setFiltered(data || []);
