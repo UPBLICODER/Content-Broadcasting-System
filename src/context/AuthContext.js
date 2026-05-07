@@ -28,7 +28,9 @@ export function AuthProvider({ children }) {
     setUser(authData);
 
     router.push(
-      authData.role === "teacher" ? "/dashboard/teacher" : "/dashboard/principal",
+      authData.role === "teacher"
+        ? "/dashboard/teacher"
+        : "/dashboard/principal",
     );
   };
 

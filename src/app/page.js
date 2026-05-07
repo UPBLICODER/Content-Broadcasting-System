@@ -26,7 +26,7 @@ export default function Home() {
         <div className="rounded-3xl bg-white shadow-lg p-8 sm:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10">
           <div className="max-w-xl">
             <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 leading-tight">
-              Streamline <span className="text-blue-600">School Content</span>
+              Content<span className="text-blue-600"> Broadcasting</span> System
             </h1>
             <p className="mt-6 text-lg text-slate-600">
               A simple platform for teachers to submit lessons, principals to
@@ -94,7 +94,7 @@ export default function Home() {
 
         {/* Footer */}
         <div className="mt-20 text-center text-sm text-slate-500">
-          © {new Date().getFullYear()} School Workflow Platform
+          © {new Date().getFullYear()} Content Broadcasting System
         </div>
       </div>
     </div>

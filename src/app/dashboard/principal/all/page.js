@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { getAllContent } from "@/services/approval.service";
 import useRoleGuard from "@/hooks/useRoleGuard";
 
@@ -8,8 +8,6 @@ export default function AllContentPage() {
   const { user, loading } = useRoleGuard("principal");
 
   const [items, setItems] = useState([]);
-  const [filtered, setFiltered] = useState([]);
-
   const [statusFilter, setStatusFilter] = useState("all");
   const [search, setSearch] = useState("");
 
@@ -25,7 +23,6 @@ export default function AllContentPage() {
         const data = await getAllContent();
 
         setItems(data || []);
-        setFiltered(data || []);
       } catch (err) {
         setError("Failed to load content");
       } finally {
@@ -38,8 +35,8 @@ export default function AllContentPage() {
     }
   }, [user]);
 
-  // filtering
-  useEffect(() => {
+  // filtering with useMemo
+  const filtered = useMemo(() => {
     let data = [...items];
 
     if (statusFilter !== "all") {
@@ -52,7 +49,7 @@ export default function AllContentPage() {
       );
     }
 
-    setFiltered(data);
+    return data;
   }, [statusFilter, search, items]);
 
   if (loading) return null;
