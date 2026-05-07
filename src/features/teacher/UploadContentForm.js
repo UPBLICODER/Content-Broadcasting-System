@@ -36,7 +36,7 @@ const schema = z
     path: ["endTime"],
   });
 
-export default function UploadContentForm() {
+export default function UploadContentForm({ teacherId, teacherName }) {
   const {
     register,
     handleSubmit,
@@ -58,12 +58,12 @@ export default function UploadContentForm() {
     const allowed = ["image/jpeg", "image/png", "image/gif"];
 
     if (!allowed.includes(file.type)) {
-      setMessage("Only JPG, PNG, GIF allowed");
+      setMessage("Only JPG, PNG, or GIF files are allowed.");
       return;
     }
 
     if (file.size > 10 * 1024 * 1024) {
-      setMessage("File must be less than 10MB");
+      setMessage("File must be less than 10MB.");
       return;
     }
 
@@ -85,6 +85,7 @@ export default function UploadContentForm() {
       formData.append("startTime", data.startTime);
       formData.append("endTime", data.endTime);
       formData.append("rotationDuration", data.rotationDuration || "");
+      formData.append("teacherId", teacherId || "");
 
       await createContent(formData);
 
@@ -99,14 +100,29 @@ export default function UploadContentForm() {
   };
 
   return (
-    <div className="max-w-xl bg-white p-6 rounded shadow space-y-4">
-      <h2 className="text-xl font-semibold">Upload Content</h2>
+    <div className="max-w-2xl mx-auto bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+      <div className="flex flex-col gap-1">
+        <h2 className="text-2xl font-semibold">Submit lesson for approval</h2>
+        {teacherName && (
+          <p className="text-sm text-gray-500">Uploading as {teacherName}</p>
+        )}
+        <p className="text-sm text-gray-500">
+          Add a title, subject, and lesson file. Set the publish window and
+          submit the lesson for principal review.
+        </p>
+      </div>
 
-      {message && <p className="text-sm text-blue-600">{message}</p>}
+      {message && (
+        <p
+          className={`text-sm ${message.includes("successfully") ? "text-green-600" : "text-blue-600"}`}
+        >
+          {message}
+        </p>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
         <input
-          placeholder="Title"
+          placeholder="Lesson title"
           {...register("title")}
           className="w-full border p-2"
         />

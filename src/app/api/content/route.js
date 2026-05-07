@@ -7,6 +7,15 @@ export async function GET() {
 export async function POST(req) {
   const formData = await req.formData();
 
+  const teacherId = formData.get("teacherId");
+
+  if (!teacherId) {
+    return new Response(JSON.stringify({ error: "teacherId is required" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   const newContent = {
     id: Date.now(),
     title: formData.get("title"),
@@ -17,6 +26,7 @@ export async function POST(req) {
     startTime: formData.get("startTime"),
     endTime: formData.get("endTime"),
     rotationDuration: formData.get("rotationDuration"),
+    teacherId,
   };
 
   addContent(newContent);

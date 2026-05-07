@@ -1,0 +1,80 @@
+Project Structure
+-----------------
+This app is built as a frontend project using Next.js, React, and Tailwind CSS. The code is organized so the UI, authentication, and API service logic are separate.
+
+Main folders:
+- src/app: page routes and layouts
+- src/components: reusable UI components like buttons and navigation
+- src/context: authentication state management
+- src/features: feature-specific UI pieces (teacher upload, content list, login form)
+- src/services: API service layer for auth, content, and approvals
+- src/lib: shared constants and mock data handling
+- src/hooks: custom hooks for auth and role checks
+
+Authentication Flow
+-------------------
+The app uses a frontend auth model with email and password validation.
+- Auth state is stored in localStorage through AuthContext.
+- Users log in with email and password, then are redirected by role.
+- The auth token is mocked and attached to service requests so the API service layer stays clean.
+- After login, users are redirected by role:
+  - Teacher → /dashboard/teacher
+  - Principal → /dashboard/principal
+
+Role-based Routing
+------------------
+The app checks user role before showing dashboard pages.
+- Teachers can only access teacher dashboard and upload pages.
+- Principals can only access principal dashboard, pending approvals, and all content.
+- Public users can access /live and /live/[teacherId] without login.
+
+API Integration Approach
+------------------------
+All API calls are handled in a dedicated service layer:
+- src/services/api.js: sets up axios with base URL and auth token handling
+- src/services/auth.service.js: handles login validation for the demo
+- src/services/content.service.js: teacher content and upload requests
+- src/services/approval.service.js: principal approval and content requests
+
+The frontend does not call APIs directly inside components. Components use service functions instead.
+
+State Management Approach
+-------------------------
+- Auth state is stored in React context with AuthProvider.
+- Page-level state uses useState and useEffect.
+- Loading, error, and empty states are handled inside each page or feature component.
+
+Backend Notes
+-------------
+This assignment is a frontend task. I did not build a separate backend service.
+Instead, the app uses mock data and Next.js API routes already in the same project. This keeps the frontend demo working and makes it easy to replace with a real backend later.
+
+Assumptions
+-----------
+- Email/password login is simulated with mock credentials in src/lib/constants.js.
+- The app uses mock teacher and principal accounts defined in src/lib/constants.js.
+- Content upload uses a local service layer and mock API routes, not a real remote backend.
+- Scheduling is based on start and end times stored in content and shown in the UI.
+- Public landing and live pages are now more polished with teacher broadcast status and clearer student-facing messaging.
+
+How the App Meets the Requirements
+-----------------------------------
+- Authentication: yes, with role-based redirects and local storage.
+- Role-based UI: yes, teacher and principal pages are separated.
+- Teacher dashboard: yes, shows total, pending, approved, rejected counts.
+- Principal dashboard: yes, shows metrics, pending approvals, and all content.
+- Content upload form: yes, with title, subject, description, file upload, start/end time, rotation duration.
+- Approval workflow UI: yes, principal can approve or reject with a reason.
+- Live content broadcasting page: yes, public teacher pages show approved lessons.
+- Scheduling fields: yes, start and end times are in the upload form.
+- Loading/error/empty states: yes, handled across pages.
+
+Replacement Path
+----------------
+If a real backend is added later, the service layer can be updated without changing the page components. The current structure makes it easy to swap mock API calls for real endpoints.
+
+Developer Notes
+---------------
+- The app is built to feel like a real front-end system while keeping the backend logic mockable.
+- The structure supports adding more pages, components, and services later.
+- The UI is simple and focused on the main assignment flows.

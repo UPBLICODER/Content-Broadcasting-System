@@ -25,9 +25,12 @@ export default function DashboardLayout({ children }) {
 
   return (
     <div className="flex">
-      <Sidebar />
+      {/* Sidebar hidden on mobile */}
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>
+
       <div className="flex-1">
-        <Navbar />
         <main className="p-4">{children}</main>
       </div>
     </div>

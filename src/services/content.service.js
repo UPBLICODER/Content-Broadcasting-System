@@ -1,9 +1,13 @@
 import api from "./api";
 
-// teacher: get own content
-export async function getMyContent() {
+// teacher: get own content by teacher id
+export async function getMyContent(teacherId) {
   try {
-    return await api.get("/content/my");
+    if (!teacherId) {
+      throw new Error("Teacher ID is required");
+    }
+
+    return await api.get(`/content/teacher/${teacherId}`);
   } catch (error) {
     throw error;
   }

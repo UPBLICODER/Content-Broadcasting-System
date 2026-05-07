@@ -32,7 +32,7 @@ export default function TeacherPage() {
   useEffect(() => {
     async function load() {
       try {
-        const data = await getMyContent();
+        const data = await getMyContent(user?.id);
 
         const list = data || [];
 
@@ -57,34 +57,60 @@ export default function TeacherPage() {
 
   return (
     <div className="space-y-6">
-      {/* Navigation */}
-      <div className="flex gap-3">
-        <Link
-          href="/dashboard/teacher/upload"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Upload Content
-        </Link>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold">
+            Welcome back, <span className="text-purple-900">{user.name}</span>
+          </h1>
+          <p className="text-sm text-gray-500">
+            Submit lessons for review and track whether they are approved for
+            student viewing.
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <Link
+            href="/"
+            className="block sm:hidden bg-gray-200 px-4 py-2 rounded text-center"
+          >
+            Home
+          </Link>
+          <Link
+            href="/dashboard/teacher/upload"
+            className="bg-blue-600 text-white px-4 py-2 rounded text-center"
+          >
+            Upload
+          </Link>
+          <Link
+            href={`/live/${user.id}`}
+            className="bg-gray-200 px-4 py-2 rounded text-center"
+          >
+            My Approved Content
+          </Link>
+        </div>
       </div>
 
-      {/* Error */}
       {error && <p className="text-red-500">{error}</p>}
 
-      {/* Stats */}
       {loading ? (
-        <p className="text-gray-500">Loading dashboard...</p>
+        <p className="text-gray-500">Loading your teaching dashboard...</p>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatCard title="Total" value={stats.total} />
-          <StatCard title="Pending" value={stats.pending} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <StatCard title="Total uploads" value={stats.total} />
+          <StatCard title="Waiting review" value={stats.pending} />
           <StatCard title="Approved" value={stats.approved} />
           <StatCard title="Rejected" value={stats.rejected} />
         </div>
       )}
 
-      <h3 className="font-bold">My Content</h3>
-      {/* List */}
-      <MyContentList />
+      <div className="rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-blue-800">
+        Approved lessons are published for students. Pending items remain
+        visible here until the principal approves or rejects them.
+      </div>
+
+      <section className="space-y-3">
+        <h3 className="font-bold text-lg">My recent lessons</h3>
+        <MyContentList teacherId={user.id} />
+      </section>
     </div>
   );
 }

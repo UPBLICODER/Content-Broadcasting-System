@@ -1,5 +1,29 @@
 [
   {
+    "id": 1778059858371,
+    "title": "Physics - Gravity",
+    "subject": "Physice",
+    "description": "Gravity is a fundamental, invisible force of attraction that pulls objects with mass or energy toward each other.",
+    "status": "approved",
+    "fileName": "gravity.jpg",
+    "startTime": "2026-05-06T15:00",
+    "endTime": "2026-05-12T15:00",
+    "rotationDuration": "",
+    "teacherId": "teacher-2"
+  },
+  {
+    "id": 1778057508872,
+    "title": "12th Notes",
+    "subject": "Chemistry",
+    "description": "To prepare for the semester exam.",
+    "status": "approved",
+    "fileName": "banner.png",
+    "startTime": "2026-05-06T14:21",
+    "endTime": "2026-05-13T14:21",
+    "rotationDuration": "",
+    "teacherId": "teacher-3"
+  },
+  {
     "id": 1777981997693,
     "title": "Test",
     "subject": "Test",
@@ -8,15 +32,17 @@
     "fileName": "ChatGPT Image Apr 29, 2026, 04_40_35 PM.png",
     "startTime": "2026-05-05T17:23",
     "endTime": "2026-05-06T17:23",
-    "rotationDuration": ""
+    "rotationDuration": "",
+    "teacherId": "teacher-1"
   },
   {
     "id": 1,
     "title": "Math Lecture - Algebra Basics",
     "subject": "Math",
-    "status": "pending",
+    "status": "approved",
+    "teacherId": "teacher-1",
     "startTime": "2026-05-05T10:00",
-    "endTime": "2026-05-05T12:00",
+    "endTime": "2026-05-09T12:00",
     "rejectionReason": "rejected"
   },
   {
@@ -24,6 +50,7 @@
     "title": "Physics - Newton Laws",
     "subject": "Physics",
     "status": "approved",
+    "teacherId": "teacher-2",
     "startTime": "2026-05-04T09:00",
     "endTime": "2026-05-04T11:00"
   },
@@ -32,6 +59,7 @@
     "title": "Chemistry - Organic Compounds",
     "subject": "Chemistry",
     "status": "rejected",
+    "teacherId": "teacher-3",
     "rejectionReason": "Content not aligned with syllabus",
     "startTime": "2026-05-03T13:00",
     "endTime": "2026-05-03T15:00"
@@ -41,6 +69,7 @@
     "title": "History - World War II",
     "subject": "History",
     "status": "pending",
+    "teacherId": "teacher-1",
     "startTime": "2026-05-07T09:00",
     "endTime": "2026-05-07T10:30"
   }

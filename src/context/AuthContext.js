@@ -2,12 +2,13 @@
 
 import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { loginUser } from "@/services/auth.service";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -17,17 +18,17 @@ export function AuthProvider({ children }) {
       setUser(JSON.parse(stored));
     }
 
-    setLoading(false); 
+    setLoading(false);
   }, []);
 
-  const login = ({ role }) => {
-    const authData = { role, token: "abc123" };
+  const login = async ({ email, password }) => {
+    const authData = await loginUser(email, password);
 
     localStorage.setItem("auth", JSON.stringify(authData));
     setUser(authData);
 
     router.push(
-      role === "teacher" ? "/dashboard/teacher" : "/dashboard/principal",
+      authData.role === "teacher" ? "/dashboard/teacher" : "/dashboard/principal",
     );
   };
 

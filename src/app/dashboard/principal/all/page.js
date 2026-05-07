@@ -58,13 +58,33 @@ export default function AllContentPage() {
   if (loading) return null;
   if (!user) return null;
 
-  if (loadingData) return <p className="text-gray-500">Loading...</p>;
+  if (loadingData)
+    return <p className="text-gray-500">Loading content library...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="space-y-4">
-      {/* Filters */}
-      <div className="flex gap-3">
+      <div className="rounded-lg bg-white p-5 shadow">
+        <h1 className="text-xl font-semibold">All lesson submissions</h1>
+        <p className="text-sm text-gray-500">
+          Browse every lesson submitted by teachers. Filter by status or search
+          by title to find the content you want to review.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="flex gap-2 flex-wrap">
+          <span className="rounded-full bg-blue-50 px-3 py-1 text-sm text-blue-700">
+            Total: {items.length}
+          </span>
+          <span className="rounded-full bg-green-50 px-3 py-1 text-sm text-green-700">
+            Approved:{" "}
+            {items.filter((item) => item.status === "approved").length}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex gap-3 flex-col md:flex-row">
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
