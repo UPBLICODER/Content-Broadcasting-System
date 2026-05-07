@@ -5,12 +5,15 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { getMyContent } from "@/services/content.service";
 import { TEACHERS } from "@/lib/constants";
+import useAuth from "@/hooks/useAuth";
 
 export default function LivePage() {
+  const { user } = useAuth();
   const { teacherId } = useParams();
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const isAuthTeacherOrPrincipal = user?.role === "teacher" || user?.role === "principal";
 
   const teacher = TEACHERS.find((t) => t.id === teacherId);
   const teacherName = teacher?.name || teacherId;
@@ -72,6 +75,8 @@ export default function LivePage() {
   if (!items.length) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      {!isAuthTeacherOrPrincipal && (
+       <>
         {/* Header */}
         <header className="bg-white border-b">
           <div className="mx-auto max-w-7xl px-6 py-4">
@@ -90,7 +95,9 @@ export default function LivePage() {
             </div>
           </div>
         </header>
-
+      </>
+     )}
+      
         <div className="mx-auto max-w-7xl px-6 py-20">
           <div className="text-center">
             <div className="rounded-3xl bg-white shadow-lg p-12 max-w-2xl mx-auto">
@@ -138,25 +145,29 @@ export default function LivePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Header */}
-      <header className="bg-white border-b">
-        <div className="mx-auto max-w-7xl px-6 py-4">
-          <div className="flex justify-between items-center">
-            <Link href="/" className="hover:opacity-75 transition">
-              <h1 className="font-semibold text-lg text-slate-900">
-                Content Broadcasting System
-              </h1>
-            </Link>
-            <Link
-              href="/login"
-              className="px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-            >
-              Sign in
-            </Link>
-          </div>
-        </div>
-      </header>
-
+      {!isAuthTeacherOrPrincipal && (
+       <>
+        {/* Header */}
+          <header className="bg-white border-b">
+            <div className="mx-auto max-w-7xl px-6 py-4">
+              <div className="flex justify-between items-center">
+                <Link href="/" className="hover:opacity-75 transition">
+                  <h1 className="font-semibold text-lg text-slate-900">
+                    Content Broadcasting System
+                  </h1>
+                </Link>
+                <Link
+                  href="/login"
+                  className="px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+                >
+                  Sign in
+                </Link>
+              </div>
+            </div>
+          </header>
+        </>
+       )}
+                
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="mb-8 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
