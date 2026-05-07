@@ -122,36 +122,3 @@ export default function LiveIndexPage() {
     </div>
   );
 }
-              href="/"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-100"
-            >
-              Home
-            </Link>
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {teacherAccounts.map((teacher) => {
-            const activeCount = activeCounts[teacher.id] || 0;
-            return (
-              <Link
-                key={teacher.id}
-                href={`/live/${teacher.id}`}
-                className="block rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <h2 className="text-xl font-semibold text-slate-900">{teacher.name}</h2>
-                  </div>
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${activeCount > 0 ? "bg-green-100 text-green-800" : "bg-slate-100 text-slate-600"}`}>
-                    {loading ? "..." : activeCount > 0 ? `${activeCount} live` : "No live"}
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
